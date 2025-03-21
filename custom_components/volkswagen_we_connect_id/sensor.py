@@ -75,6 +75,20 @@ SENSORS: tuple[VolkswagenIdEntityDescription, ...] = (
         ].targetTemperature_C.value,
     ),
     VolkswagenIdEntityDescription(
+        key="auxiliaryHeatingSettingsDuration",
+        name="Auxiliary Heating Settings duration",
+        value=lambda data: data["climatisation"][
+            "climatisationSettings"
+        ].auxiliaryHeatingSettings.duration_min.value,
+    ),
+    VolkswagenIdEntityDescription(
+        key="auxiliaryHeatingSettingsMode",
+        name="Auxiliary Heating Settings mode",
+        value=lambda data: data["climatisation"][
+            "climatisationSettings"
+        ].auxiliaryHeatingSettings.startMode.value,
+    ),
+    VolkswagenIdEntityDescription(
         key="unitInCar",
         name="Unit In car",
         value=lambda data: data["climatisation"][
@@ -438,6 +452,24 @@ VEHICLE_SENSORS: tuple[VolkswagenIdEntityDescription, ...] = (
         name="Last Trip Average Fuel consumption",
         native_unit_of_measurement="l/100km",
         value=lambda vehicle: vehicle.trips["shortTerm"].averageFuelConsumption.value,
+    ),
+    VolkswagenIdEntityDescription(
+        key="lastTripTotalFuelConsumption_L",
+        name="Last Trip total fuel consumption",
+        native_unit_of_measurement="l/100km",
+        value=lambda vehicle: vehicle.trips["shortTerm"].totalFuelConsumption_L.value,
+    ),
+    VolkswagenIdEntityDescription(
+        key="longTripTotalFuelConsumption_L",
+        name="Long Term Total fuel consumption",
+        native_unit_of_measurement="l/100km",
+        value=lambda vehicle: vehicle.trips["longTerm"].totalFuelConsumption_L.value,
+    ),
+    VolkswagenIdEntityDescription(
+        key="cyclicTotalFuelConsumption_L",
+        name="Cyclic Total fuel consumption",
+        native_unit_of_measurement="l/100km",
+        value=lambda vehicle: vehicle.trips["cyclic"].totalFuelConsumption_L.value,
     ),
 
 )
